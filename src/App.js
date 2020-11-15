@@ -23,9 +23,9 @@ extend({ EffectComposer, RenderPass, ShaderPass })
 const DEFAULT_LAYER = 0
 const OCCLUSION_LAYER = 1
 
-function LeRaccoon({ layer = DEFAULT_LAYER }) {
+function Leracoon({ layer = DEFAULT_LAYER }) {
     const group = useRef()
-    const gltf = useLoader(GLTFLoader, "/LeRaccoon.glb")
+    const gltf = useLoader(GLTFLoader, "/Leracoon.glb")
     console.log(gltf)
 
     const material = useMemo(() => {
@@ -154,8 +154,8 @@ const App = () => {
                 />
             </mesh>
             <Suspense fallback={null}>
-                <LeRaccoon />
-                <LeRaccoon layer={OCCLUSION_LAYER} />
+                <Leracoon />
+                <Leracoon layer={OCCLUSION_LAYER} />
             </Suspense>
             <Effects />
         </Canvas>
