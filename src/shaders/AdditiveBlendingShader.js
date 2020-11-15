@@ -1,4 +1,4 @@
-export default {
+const Shader = {
     uniforms: {
         tDiffuse: { value: null },
         tAdd: { value: null },
@@ -21,3 +21,5 @@ export default {
         gl_FragColor = color + add;
       }`,
 }
+
+export default Shader
