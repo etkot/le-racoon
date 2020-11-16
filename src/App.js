@@ -25,28 +25,26 @@ const OCCLUSION_LAYER = 1
 
 function Leracoon({ layer = DEFAULT_LAYER }) {
     const group = useRef()
-    const gltf = useLoader(GLTFLoader, "/Leracoon.glb")
+    const gltf = useLoader(GLTFLoader, "/wideG.glb")
     console.log(gltf)
 
     const material = useMemo(() => {
         if (layer === DEFAULT_LAYER)
-            return new THREE.MeshStandardMaterial({
-                color: new THREE.Color("#D4AF37"),
-                roughness: 0.2,
-                metalness: 0.9,
-            })
+            return new THREE.MeshBasicMaterial(gltf.__$[4].material)
         else
             return new THREE.MeshBasicMaterial({
                 color: new THREE.Color("black"),
             })
-    }, [layer])
+    }, [layer, gltf])
 
-    useFrame(() => (group.current.rotation.y += 0.004))
+    useFrame(() => (group.current.rotation.y += 0.008))
 
     return (
         <group ref={group}>
-            <group position={[0, 4.3, 0]}>
+            <group position={[0, 4.3, 0]} rotation={[-1, 0, 0]}>
                 <mesh
+                    rotation={[-1.57079633, 0, 0]}
+                    position={[0, 0, 0]}
                     material={material}
                     layers={layer}
                     receiveShadow
@@ -54,7 +52,7 @@ function Leracoon({ layer = DEFAULT_LAYER }) {
                 >
                     <bufferGeometry
                         attach="geometry"
-                        {...gltf.__$[2].geometry}
+                        {...gltf.__$[4].geometry}
                     />
                 </mesh>
             </group>
@@ -87,7 +85,7 @@ function Effects() {
         <>
             <mesh layers={OCCLUSION_LAYER} position={[0, 4.5, -10]}>
                 <sphereBufferGeometry attach="geometry" args={[5, 32, 32]} />
-                <meshBasicMaterial attach="material" />
+                <meshBasicMaterial attach="material" color="#855656" />
             </mesh>
             <effectComposer
                 ref={occlusionComposer}
@@ -127,7 +125,7 @@ const App = () => {
         <Canvas
             shadowMap
             style={{ background: "#171717" }}
-            camera={{ position: [0, 4, 8], fov: 50 }}
+            camera={{ position: [0, 4, 14], fov: 50 }}
             gl={{ antialias: false }}
             onCreated={({ gl }) => {
                 gl.toneMapping = THREE.Uncharted2ToneMapping
@@ -151,6 +149,7 @@ const App = () => {
                     attach="material"
                     transparent
                     opacity={0.5}
+                    color={new THREE.Color("#b35f5f")}
                 />
             </mesh>
             <Suspense fallback={null}>
