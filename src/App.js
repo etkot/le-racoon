@@ -31,7 +31,7 @@ function Leracoon({ layer = DEFAULT_LAYER }) {
     const material = useMemo(() => {
         if (layer === DEFAULT_LAYER)
             return new THREE.MeshStandardMaterial({
-                color: new THREE.Color("#2a2a2a"),
+                color: new THREE.Color("#D4AF37"),
                 roughness: 0.2,
                 metalness: 0.9,
             })
